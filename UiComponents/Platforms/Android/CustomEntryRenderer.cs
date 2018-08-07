@@ -24,11 +24,12 @@ namespace Plugin.UiComponents.Platforms.Android
         {
             base.OnElementChanged(e);
 
-            Control.SetPadding(PaddingLeft + 30, PaddingTop + 30, PaddingRight + 30, PaddingBottom + 30);
+            Control.SetPadding(PaddingLeft + 30, PaddingTop + 30, PaddingRight + 30, PaddingBottom + 30);            
 
             UpdateBorderColor();
             UpdateCornerRadius();
             UpdateBackground();
+            UpdateIcon();           
         }
 
         protected override void OnElementPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -37,8 +38,10 @@ namespace Plugin.UiComponents.Platforms.Android
 
             if (e.PropertyName == CustomEntry.BorderColorProperty.PropertyName)
                 UpdateBorderColor();
-            if (e.PropertyName == CustomEntry.CornerRadiusProperty.PropertyName)
+            else if (e.PropertyName == CustomEntry.CornerRadiusProperty.PropertyName)
                 UpdateCornerRadius();
+            else if (e.PropertyName == CustomEntry.IconLeftProperty.PropertyName || e.PropertyName ==  CustomEntry.IconRightProperty.PropertyName)
+                UpdateIcon();
 
             UpdateBackground();
         }
@@ -63,10 +66,31 @@ namespace Plugin.UiComponents.Platforms.Android
         private void UpdateBackground()
         {
             Control.SetBackground(_gradientDrawable);
+        }        
+
+        private void UpdateIcon()
+        {
+            var drawLeft = Context.GetDrawable(((CustomEntry)Element).IconLeft);
+            var drawRight = Context.GetDrawable(((CustomEntry)Element).IconRight);
+
+            drawLeft?.Bounds.Offset(-20, 0);
+            drawLeft?.SetBounds(0, 0, drawLeft.IntrinsicWidth, drawLeft.IntrinsicHeight);
+
+            drawRight?.Bounds.Offset(15, 0);
+            drawRight?.SetBounds(0, 0, drawRight.IntrinsicWidth, drawRight.IntrinsicHeight);
+
+
+            Control.SetCompoundDrawables(
+                drawLeft,
+                null,
+                drawRight, 
+                null
+            );
         }
 
-        
 
-       
+
+
+
     }
 }

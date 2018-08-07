@@ -10,7 +10,7 @@
 
         <control:CustomEntry Placeholder="Usuário" HorizontalOptions="FillAndExpand" 
                              BorderColor="#cccccc" CornerRadius="50" BackgroundColor="Blue" />
-        <control:CustomEntry Placeholder="Senha" HorizontalOptions="FillAndExpand" IsPassword="True"  />
+        <control:CustomEntry Placeholder="Senha" BorderColor="#cccccc" BorderColorFocused="#000000"  HorizontalOptions="FillAndExpand" IsPassword="True" IconLeft="baseline_done_black_24.png" IconRight="baseline_done_black_24.png"  />
     </StackLayout>
 
 </ContentPage>
